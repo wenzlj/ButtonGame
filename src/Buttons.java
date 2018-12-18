@@ -14,10 +14,10 @@ public class Buttons<Button> extends JFrame {
     private JButton[][] buttons = new JButton[VERTICAL_BUTTONS][HORIZONTAL_BUTTONS];
     static int seconds = 0;
     private int waittime;
+    ;
     private int buttonnumber;
-
-
-    Random time = new Random();
+    ;
+    public int buttoncheck=0;
 
     public Buttons() {
         super("ButtonPanel");
@@ -25,44 +25,50 @@ public class Buttons<Button> extends JFrame {
         this.setLayout(new GridLayout(VERTICAL_BUTTONS, HORIZONTAL_BUTTONS));
         for (int i = 0; i < VERTICAL_BUTTONS; i++) {
             for (int g = 0; g < HORIZONTAL_BUTTONS; g++) {
-                JButton obj = new JButton();
-                buttons[i][g] = obj;
+                JButton a = new JButton();
+                buttons[i][g] = a;
                 buttons[i][g].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
+                        a.setBackground(Color.GRAY);
+                        a.setEnabled(false);
+                        buttoncheck=buttoncheck-1;
 
                     }
                 });
-                add(obj);
-                obj.setEnabled(false);
+                add(a);
+                a.setBackground(Color.GRAY);
+                a.setEnabled(false);
             }
         }
         this.setVisible(true);
 
-    }
-
-    public void ButtonEnablen() {
-        waittime = new Random().nextInt(3000) + 3000;
-        buttonnumber = new Random().nextInt(4) + 1;
-
-
         new Thread() {
 
             public void run() {
+                buttoncheck=0;
+                waittime = new Random().nextInt(3000) + 3000;
+                buttonnumber =  new Random().nextInt(4) + 1;
                 try {
                     Thread.sleep(waittime);
                 } catch (Exception ex) {
 
                 }
                 for (int i = 0; i < buttonnumber; i++) {
-                    int a = new Random().nextInt(4) + 1;
-                    int b = new Random().nextInt(4) + 1;
+                    int a = new Random().nextInt(4);
+                    int b = new Random().nextInt(4);
+                    buttons[a][b].setBackground(Color.GREEN);
                     buttons[a][b].setEnabled(true);
+                    buttoncheck=buttoncheck+1;
                 }
 
             }
 
 
-        };
+        }.start();
+
     }
+
 }
+
+

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import java.io.*;
+import java.lang.*;
 
 
 
@@ -22,6 +23,7 @@ public class Buttons<Button> extends JFrame {
     public long start;
     public long end;
     public long time;
+    public JPanel Time;
 
     public Buttons() {
         super("ButtonPanel");
@@ -91,9 +93,14 @@ public class Buttons<Button> extends JFrame {
                     for (int i = 0; i < buttonnumber; i++) {
                         int a = new Random().nextInt(4);
                         int b = new Random().nextInt(4);
-                        buttons[a][b].setBackground(Color.GREEN);
-                        buttons[a][b].setEnabled(true);
-                        buttoncheck = buttoncheck + 1;
+                        if(buttons[a][b].isEnabled()){
+
+                        }
+                        else{
+                            buttons[a][b].setBackground(Color.GREEN);
+                            buttons[a][b].setEnabled(true);
+                            buttoncheck = buttoncheck + 1;
+                        }
 
                     }
                     start = System.currentTimeMillis();

@@ -17,7 +17,7 @@ public class Buttons<Button> extends JFrame {
     ;
     private int buttonnumber;
     ;
-    public int buttoncheck=0;
+    public int buttoncheck;
 
     public Buttons() {
         super("ButtonPanel");
@@ -34,6 +34,32 @@ public class Buttons<Button> extends JFrame {
                         a.setEnabled(false);
                         buttoncheck=buttoncheck-1;
 
+                        if(buttoncheck==0) {
+                            new Thread() {
+
+                                public void run() {
+                                    buttoncheck = 0;
+                                    waittime = new Random().nextInt(3000) + 3000;
+                                    buttonnumber = new Random().nextInt(4) + 1;
+                                    try {
+                                        Thread.sleep(waittime);
+                                    } catch (Exception ex) {
+
+                                    }
+                                    for (int i = 0; i < buttonnumber; i++) {
+                                        int a = new Random().nextInt(4);
+                                        int b = new Random().nextInt(4);
+                                        buttons[a][b].setBackground(Color.GREEN);
+                                        buttons[a][b].setEnabled(true);
+                                        buttoncheck = buttoncheck + 1;
+                                    }
+
+                                }
+
+
+                            }.start();
+
+                        }
                     }
                 });
                 add(a);
@@ -43,29 +69,30 @@ public class Buttons<Button> extends JFrame {
         }
         this.setVisible(true);
 
-        new Thread() {
+            new Thread() {
 
-            public void run() {
-                buttoncheck=0;
-                waittime = new Random().nextInt(3000) + 3000;
-                buttonnumber =  new Random().nextInt(4) + 1;
-                try {
-                    Thread.sleep(waittime);
-                } catch (Exception ex) {
+                public void run() {
+                    buttoncheck = 0;
+                    waittime = new Random().nextInt(3000) + 3000;
+                    buttonnumber = new Random().nextInt(4) + 1;
+                    try {
+                        Thread.sleep(waittime);
+                    } catch (Exception ex) {
+
+                    }
+                    for (int i = 0; i < buttonnumber; i++) {
+                        int a = new Random().nextInt(4);
+                        int b = new Random().nextInt(4);
+                        buttons[a][b].setBackground(Color.GREEN);
+                        buttons[a][b].setEnabled(true);
+                        buttoncheck = buttoncheck + 1;
+                    }
 
                 }
-                for (int i = 0; i < buttonnumber; i++) {
-                    int a = new Random().nextInt(4);
-                    int b = new Random().nextInt(4);
-                    buttons[a][b].setBackground(Color.GREEN);
-                    buttons[a][b].setEnabled(true);
-                    buttoncheck=buttoncheck+1;
-                }
-
-            }
 
 
-        }.start();
+            }.start();
+
 
     }
 

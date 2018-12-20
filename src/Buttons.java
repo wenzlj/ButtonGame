@@ -3,7 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-import java.util.Timer;
+import java.io.*;
+
 
 
 public class Buttons<Button> extends JFrame {
@@ -18,6 +19,9 @@ public class Buttons<Button> extends JFrame {
     private int buttonnumber;
     ;
     public int buttoncheck;
+    public long start;
+    public long end;
+    public long time;
 
     public Buttons() {
         super("ButtonPanel");
@@ -34,11 +38,14 @@ public class Buttons<Button> extends JFrame {
                         a.setEnabled(false);
                         buttoncheck=buttoncheck-1;
 
-                        if(buttoncheck==0) {
+                        if(buttoncheck==0)  {
+                            end = System.currentTimeMillis();
+                            time = end-start;
+                            System.out.println("Zeit[ms]:" + time);
+
                             new Thread() {
 
                                 public void run() {
-                                    buttoncheck = 0;
                                     waittime = new Random().nextInt(3000) + 3000;
                                     buttonnumber = new Random().nextInt(4) + 1;
                                     try {
@@ -53,6 +60,7 @@ public class Buttons<Button> extends JFrame {
                                         buttons[a][b].setEnabled(true);
                                         buttoncheck = buttoncheck + 1;
                                     }
+                                    start = System.currentTimeMillis();
 
                                 }
 
@@ -86,14 +94,15 @@ public class Buttons<Button> extends JFrame {
                         buttons[a][b].setBackground(Color.GREEN);
                         buttons[a][b].setEnabled(true);
                         buttoncheck = buttoncheck + 1;
-                    }
 
+                    }
+                    start = System.currentTimeMillis();
                 }
 
 
             }.start();
 
-
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 }
